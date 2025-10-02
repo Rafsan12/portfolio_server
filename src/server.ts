@@ -1,10 +1,22 @@
 import http, { Server } from "http";
 import app from "./app";
+import { prisma } from "./config/db";
 
 let server: Server;
 
+async function connectDB() {
+  try {
+    await prisma.$connect();
+    console.log("DB connected");
+  } catch (error) {
+    console.log("DB connect Failed");
+    process.exit(1);
+  }
+}
+
 // Start server
-function startServer() {
+async function startServer() {
+  await connectDB();
   server = http.createServer(app);
 
   server.listen(process.env.PORT, () => {
