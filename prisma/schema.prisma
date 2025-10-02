@@ -19,11 +19,16 @@ model User {
   name String
   email String
   password String?
-  role Role @default(SUPER_ADMIN)
+  role Role @default(USER)
+
+  Blog Blog[]
+
+  Project Project[]
 }
 
 enum Role {
   SUPER_ADMIN
+ USER
 }
 
 model Blog {
@@ -34,6 +39,7 @@ model Blog {
   tags String[]
   views Int @default(0)
  userId Int
+ author User @relation(fields: [userId], references: [id])
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
 }
@@ -46,6 +52,8 @@ model Project {
   liveLink      String?
   frontendCode  String?
   backendCode   String?
+  userId Int
+  owner User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
 
