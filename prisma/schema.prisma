@@ -13,3 +13,40 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  password String?
+  role Role @default(SUPER_ADMIN)
+}
+
+enum Role {
+  SUPER_ADMIN
+}
+
+model Blog {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  thumbnail String?
+  tags String[]
+  views Int @default(0)
+ userId Int
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  tags String[]
+  liveLink      String?
+  frontendCode  String?
+  backendCode   String?
+  createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+
+}
