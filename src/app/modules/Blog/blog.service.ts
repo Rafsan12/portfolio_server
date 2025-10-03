@@ -27,7 +27,10 @@ const updateBlog = async (
   });
   return result;
 };
-const getAllBlog = async () => {};
+const getAllBlog = async () => {
+  const result = await prisma.blog.findMany({});
+  return result;
+};
 const deleteBlog = async () => {};
 
 export const BlogService = {

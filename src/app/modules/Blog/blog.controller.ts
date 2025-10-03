@@ -23,7 +23,16 @@ const updateBlog = async (req: Request, res: Response) => {
     res.status(400).json({ error: error.message });
   }
 };
-const getAllBlog = async (req: Request, res: Response) => {};
+const getAllBlog = async (req: Request, res: Response) => {
+  try {
+    const result = await BlogService.getAllBlog();
+    res
+      .status(201)
+      .json({ message: "All Blogs fetch successfully", data: result });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
 const deleteBlog = async (req: Request, res: Response) => {};
 
 export const BlogController = {
