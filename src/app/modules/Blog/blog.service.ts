@@ -2,7 +2,7 @@ import { Blog, Prisma } from "@prisma/client";
 import { prisma } from "../../../config/db";
 
 const createBlog = async (payload: Prisma.BlogCreateInput): Promise<Blog> => {
-  const result = await prisma.blog.create({
+  const createBlog = await prisma.blog.create({
     data: payload,
     include: {
       author: {
@@ -13,25 +13,27 @@ const createBlog = async (payload: Prisma.BlogCreateInput): Promise<Blog> => {
       },
     },
   });
-  return result;
+  return createBlog;
 };
 const updateBlog = async (
   id: number,
   payload: Prisma.BlogCreateInput
 ): Promise<Blog> => {
   const { title, content, thumbnail, tags } = payload;
-  const result = await prisma.blog.update({
+  const updateBlog = await prisma.blog.update({
     where: { id },
     data: { title, content, thumbnail, tags },
     include: { author: { select: { id: true, name: true } } },
   });
-  return result;
+  return updateBlog;
 };
 const getAllBlog = async () => {
-  const result = await prisma.blog.findMany({});
-  return result;
+  const allBlogs = await prisma.blog.findMany({});
+  return allBlogs;
 };
-const deleteBlog = async () => {};
+const deleteBlog = async (id: number) => {
+  const deleteBlog = await prisma.blog.delete({ where: { id } });
+};
 
 export const BlogService = {
   createBlog,
