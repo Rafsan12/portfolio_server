@@ -1,11 +1,12 @@
 import { Router } from "express";
+import { verifySuperAdmin } from "../../middlewares/verifySuperAdmin";
 import { BlogController } from "./blog.controller";
 
 const router = Router();
 
-router.post("/create_blog", BlogController.createBlog);
-router.patch("/:id", BlogController.updateBlog);
+router.post("/create_blog", verifySuperAdmin, BlogController.createBlog);
+router.patch("/:id", verifySuperAdmin, BlogController.updateBlog);
 router.get("/", BlogController.getAllBlog);
-router.delete("/:id", BlogController.deleteBlog);
+router.delete("/:id", verifySuperAdmin, BlogController.deleteBlog);
 
 export const BlogRouter = router;
