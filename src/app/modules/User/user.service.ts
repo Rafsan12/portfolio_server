@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+
 import { prisma } from "../../../config/db";
 import { IUser } from "./user.interface";
 
@@ -10,6 +11,7 @@ const createUser = async (payload: IUser) => {
   const createUser = await prisma.user.create({
     data: { name, email, password: hashPassword },
   });
+
   return createUser;
 };
 

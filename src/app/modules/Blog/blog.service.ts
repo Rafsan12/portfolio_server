@@ -31,6 +31,10 @@ const getAllBlog = async () => {
   const allBlogs = await prisma.blog.findMany({});
   return allBlogs;
 };
+const getSingleBlog = async (id: number) => {
+  const singleBlog = await prisma.blog.findUniqueOrThrow({ where: { id } });
+  return singleBlog;
+};
 const deleteBlog = async (id: number) => {
   const deleteBlog = await prisma.blog.delete({ where: { id } });
 };
@@ -40,4 +44,5 @@ export const BlogService = {
   updateBlog,
   getAllBlog,
   deleteBlog,
+  getSingleBlog,
 };

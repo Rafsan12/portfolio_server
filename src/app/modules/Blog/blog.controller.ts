@@ -36,6 +36,23 @@ const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+const getSingleBlog = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const singleBlog = await BlogService.getSingleBlog(Number(req.params.id));
+
+    res
+      .status(201)
+      .json({ message: "single Blog fetched successfully", data: singleBlog });
+  } catch (error: any) {
+    // res.status(400).json({ error: error.message });
+    next(error);
+  }
+};
+
 const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await BlogService.deleteBlog(Number(req.params.id));
@@ -51,5 +68,6 @@ export const BlogController = {
   createBlog,
   updateBlog,
   getAllBlog,
+  getSingleBlog,
   deleteBlog,
 };
